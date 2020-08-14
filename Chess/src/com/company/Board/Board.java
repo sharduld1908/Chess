@@ -2,22 +2,42 @@ package com.company.Board;
 
 import com.company.Alliance;
 import com.company.Pieces.*;
+import com.company.Player.BlackPlayer;
+import com.company.Player.Player;
+import com.company.Player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
 import java.util.*;
 
 public class Board {
     private final List<Tile> gameBoard;
-    private Collection<Piece> whitePieces;
-    private Collection<Piece> blackPieces;
+    private final Collection<Piece> whitePieces;
+    private final Collection<Piece> blackPieces;
 
-    private Board(Builder builder) {
+    private final WhitePlayer whitePlayer;
+    private final BlackPlayer blackPlayer;
+    private final Player currentPlayer;
+
+    private Board(final Builder builder) {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard,Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard,Alliance.BLACK);
 
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
+
+        this.whitePlayer = new WhitePlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
+        this.blackPlayer = new BlackPlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
+
+        this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer,this.blackPlayer);
+    }
+
+    public Collection<Piece> getWhitePieces() {
+        return whitePieces;
+    }
+
+    public Collection<Piece> getBlackPieces() {
+        return blackPieces;
     }
 
     @Override
@@ -103,6 +123,18 @@ public class Board {
         builder.setPiece(new Rook(63,Alliance.WHITE));
 
         return builder.build();
+    }
+
+    public Player blackPlayer() {
+        return this.blackPlayer;
+    }
+
+    public Player whitePlayer() {
+        return this.whitePlayer;
+    }
+
+    public Player currentPlayer() {
+        return this.currentPlayer;
     }
 
     public static class Builder {

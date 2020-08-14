@@ -16,7 +16,7 @@ import static com.company.Board.Move.*;
 public class Queen extends Piece {
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9,-8,-7,-1,1,7,8,9};
     public Queen(int position, Alliance alliance) {
-        super(position, alliance);
+        super(PieceType.QUEEN,position, alliance);
     }
 
     @Override
@@ -61,5 +61,10 @@ public class Queen extends Piece {
     @Override
     public String toString() {
         return PieceType.QUEEN.toString();
+    }
+
+    @Override
+    public Queen movePiece(Move move) {
+        return new Queen(move.getDestinationCoordinate(),move.getMovedPiece().getAlliance());
     }
 }
