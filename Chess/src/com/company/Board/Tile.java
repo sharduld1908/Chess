@@ -27,8 +27,11 @@ public abstract class Tile {
         return piece != null ? new OccupiedTile(tileNumber, piece) : EMPTY_TILES.get(tileNumber);
     }
 
-    public abstract boolean isTileOccupied();
+    public int getTileNumber() {
+        return tileNumber;
+    }
 
+    public abstract boolean isTileOccupied();
     public abstract Piece getPiece();
 
     public static final class EmptyTile extends Tile {

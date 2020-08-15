@@ -13,6 +13,14 @@ public abstract class Move {
         this.destinationCoordinate = destinationCoordinate;
     }
 
+    public Piece getMovedPiece() {
+        return movedPiece;
+    }
+
+    public int getDestinationCoordinate() {
+        return destinationCoordinate;
+    }
+
     public static final class MajorMove extends Move {
         public MajorMove(final Board board,final Piece movedPiece,final int destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
