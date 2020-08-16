@@ -124,7 +124,7 @@ public class Board {
         builder.setPiece(new Rook(63,Alliance.WHITE));
 
         builder.setMoveMaker(Alliance.WHITE);
-        
+
         return builder.build();
     }
 
