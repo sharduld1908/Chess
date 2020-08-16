@@ -123,6 +123,8 @@ public class Board {
         builder.setPiece(new Knight(62,Alliance.WHITE));
         builder.setPiece(new Rook(63,Alliance.WHITE));
 
+        builder.setMoveMaker(Alliance.WHITE);
+        
         return builder.build();
     }
 
