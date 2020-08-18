@@ -14,9 +14,11 @@ import java.util.List;
 public class King extends Piece{
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-1,-7,-8,-9,1,7,8,9};
     public King(final int position,final Alliance alliance) {
-        super(PieceType.KING,position, alliance);
+        super(PieceType.KING,position, alliance,true);
     }
-
+    public King(final int position,final Alliance alliance,final boolean isFirstMove) {
+        super(PieceType.KING,position, alliance,isFirstMove);
+    }
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();

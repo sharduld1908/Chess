@@ -16,8 +16,11 @@ public class Bishop extends Piece {
 
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9,-7,7,9};
 
-    public Bishop(int position, Alliance alliance) {
-        super(PieceType.BISHOP,position, alliance);
+    public Bishop(final int position,final Alliance alliance) {
+        super(PieceType.BISHOP,position, alliance,true);
+    }
+    public Bishop(final int position,final Alliance alliance,boolean isFirstMove) {
+        super(PieceType.BISHOP,position, alliance,isFirstMove);
     }
 
     @Override

@@ -9,6 +9,7 @@ public abstract class Move {
     final Board board;
     final Piece movedPiece;
     final int destinationCoordinate;
+    protected final boolean isFirstMove;
 
     public static final Move NULL_MOVE = new NullMove();
 
@@ -16,6 +17,14 @@ public abstract class Move {
         this.board = board;
         this.movedPiece = movedPiece;
         this.destinationCoordinate = destinationCoordinate;
+        this.isFirstMove = movedPiece.isFirstMove();
+    }
+
+    private Move(final Board board,final int destinationCoordinate) {
+        this.board = board;
+        this.destinationCoordinate = destinationCoordinate;
+        this.movedPiece = null;
+        this.isFirstMove = false;
     }
 
     public Piece getMovedPiece() {
@@ -48,6 +57,7 @@ public abstract class Move {
         int result = 1;
         result = price*result + this.movedPiece.hashCode();
         result = price*result + this.destinationCoordinate;
+        result  = price*result + this.movedPiece.getPosition();
         return result;
     }
 
@@ -61,7 +71,8 @@ public abstract class Move {
         }
         final Move move = (Move) obj;
         return getDestinationCoordinate() == move.getDestinationCoordinate() &&
-               getMovedPiece().equals(move.getMovedPiece());
+               getMovedPiece().equals(move.getMovedPiece()) &&
+               getCurrentCoordinate() == move.getCurrentCoordinate();
     }
 
     public Board execute() {
@@ -83,6 +94,16 @@ public abstract class Move {
     public static final class MajorMove extends Move {
         public MajorMove(final Board board,final Piece movedPiece,final int destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return this == obj || obj instanceof MajorMove && super.equals(obj);
+        }
+
+        @Override
+        public String toString() {
+            return movedPiece.getPieceType().toString() + BoardUtils.getPositionAtCoordinate(this.getDestinationCoordinate());
         }
     }
 

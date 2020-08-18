@@ -16,8 +16,11 @@ import static com.company.engine.Board.Move.*;
 public class Rook extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8,-1,1,8};
 
-    public Rook(int position, Alliance alliance) {
-        super(PieceType.ROOK,position, alliance);
+    public Rook(final int position,final Alliance alliance) {
+        super(PieceType.ROOK,position, alliance,true);
+    }
+    public Rook(final int position,final Alliance alliance,boolean isFirstMove) {
+        super(PieceType.ROOK,position, alliance,isFirstMove);
     }
 
     @Override
