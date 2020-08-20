@@ -27,12 +27,15 @@ public class Pawn extends Piece {
         final List<Move> legalMoves = new ArrayList<>();
 
         for (final int currentCoordinatesOffsets : CANDIDATE_MOVE_COORDINATES) {
+            System.out.println("1");
             final int candidateDestinationCoordinate = this.position + (this.alliance.getDirection() * currentCoordinatesOffsets);
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 continue;
             }
+            System.out.println("2");
             if (currentCoordinatesOffsets == 8 && !board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
-                legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+                System.out.println("3");
+                legalMoves.add(new PawnMove(board, this, candidateDestinationCoordinate));
             } else if (currentCoordinatesOffsets == 16 && this.isFirstMove() &&
                     ((BoardUtils.SEVENTH_RANK[this.position] && this.alliance.isBlack()) ||
                     (BoardUtils.SECOND_RANK[this.position] && this.alliance.isWhite()))) {
@@ -40,6 +43,7 @@ public class Pawn extends Piece {
                 if (!board.getTile(behindCandidateDestinationCoordinate).isTileOccupied() &&
                         !board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                     legalMoves.add(new PawnJump(board, this, candidateDestinationCoordinate));
+                    System.out.println("4");
                 }
             } else if (currentCoordinatesOffsets == 7 &&
                     !(BoardUtils.EIGHTH_COLUMN[this.position] && this.alliance.isWhite() ||
@@ -48,6 +52,7 @@ public class Pawn extends Piece {
                     final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     if (this.alliance != pieceOnCandidate.getAlliance()) {
                         legalMoves.add(new PawnAttackMove(board, this, candidateDestinationCoordinate,pieceOnCandidate));
+                        System.out.println("5");
                     }
                 }
             } else if (currentCoordinatesOffsets == 9 &&
@@ -57,10 +62,12 @@ public class Pawn extends Piece {
                     final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     if (this.alliance != pieceOnCandidate.getAlliance()) {
                         legalMoves.add(new PawnAttackMove(board, this, candidateDestinationCoordinate,pieceOnCandidate));
+                        System.out.println("6");
                     }
                 }
             }
         }
+        System.out.println("7");
         return ImmutableList.copyOf(legalMoves);
     }
 
