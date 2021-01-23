@@ -6,9 +6,9 @@ import com.company.engine.Board.Board.*;
 import com.company.engine.Pieces.Rook;
 
 public abstract class Move {
-    final Board board;
-    final Piece movedPiece;
-    final int destinationCoordinate;
+    protected final Board board;
+    protected final Piece movedPiece;
+    protected final int destinationCoordinate;
     protected final boolean isFirstMove;
 
     private Move(final Board board,final Piece movedPiece,final int destinationCoordinate) {
