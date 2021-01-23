@@ -71,6 +71,8 @@ public class Table {
         this.boardDirection = BoardDirection.NORMAL;
         this.highlightLegalMoves = true;
 
+        this.gameFrame.setLocationRelativeTo(null);
+        this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.gameFrame.setVisible(true);
     }
 
